@@ -56,6 +56,7 @@ function urlParameters() {
     city = decodeURIComponent(city);
     $("#homeBtn").attr("onclick", "javascript:window.location.href='BooksBarter.html?City=" + encodeURIComponent(city) + "'");    
     $("#Myposts").attr("onclick", "javascript:window.location.href='MyPosts.html?City=" + encodeURIComponent(city) + "'");
+    $("#btnUserName").html('<i class="fas fa-user"></i>&nbsp;' + window.sessionStorage.getItem("username") + '&nbsp; &nbsp; <i class="fas fa-caret-down"></i>');
 }
 
 

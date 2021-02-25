@@ -3,13 +3,12 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Login</title>
+    <title>Account</title>
 
     <link href="./CSS/fontawesome-free-5.15.2-web/css/all.css" rel="stylesheet">
     <script defer src="./CSS/fontawesome-free-5.15.2-web/js/all.js"></script>
     <link href="./CSS/fontawesome-free-5.15.2-web/css/solid.css" rel="stylesheet">
-    <script defer src="./CSS/fontawesome-free-5.15.2-web/js/solid.js"></script>
-    <script defer src="airtable.browser.js"></script>
+    <script defer src="./CSS/fontawesome-free-5.15.2-web/js/solid.js"></script>    
     <link href="./CSS/CustomCSS.css" rel="stylesheet">
 
     <link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -90,7 +89,7 @@
         <div class="row">
             <a id="homeBtn" href="javascript:void(0);" style="text-decoration:none; color:#F8E9A1; font-size:30px; font-weight:bold; font-family:Calibri"><i class="fas fa-home"></i>&nbsp; Barter Books</a>
             <div class="dropdown" style="float:right">
-                <button class="dropbtn">User Name &nbsp; &nbsp;<i class="fas fa-caret-down"></i></button>
+                <button id="btnUserName" class="dropbtn"><i class="fas fa-user"></i> User Name &nbsp; &nbsp;<i class="fas fa-caret-down"></i></button>
                 <div class="dropdown-content">
                     <a href="javascript:void(0);" onclick="javascript:window.location.href='Account.html'">Account</a>
                     <a href="javascript:void(0);" id="Myposts">My Posts</a>
@@ -203,6 +202,7 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#btnUserName").html('<i class="fas fa-user"></i>&nbsp;' + window.sessionStorage.getItem("username") + '&nbsp; &nbsp; <i class="fas fa-caret-down"></i>');
             //---- js functions called ---------------------------------------
             loadAccountDetailsFormData(true);
             btnEditAccountSubmitClicked();

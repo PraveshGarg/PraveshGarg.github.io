@@ -103,6 +103,7 @@ function btnSignUpSubmitClicked(){
                         if (xhr.responseText != "") {
                             window.sessionStorage.setItem("useremail", data[0]);
                             window.sessionStorage.setItem("token", data[2]);
+                            window.sessionStorage.setItem("username", data[3]);
                             window.location.assign(data[1]);
                         }
                         else {
@@ -169,6 +170,7 @@ function btnLoginClicked() {
 						if (xhr.responseText!="") {
                             window.sessionStorage.setItem("useremail", data[0]);
                             window.sessionStorage.setItem("token", data[2]);
+                            window.sessionStorage.setItem("username", data[3]);
                             window.location.assign(data[1]);                            
 						}
 						else {
@@ -289,6 +291,7 @@ function btnResetPasswordClicked() {
 						if (xhr.responseText != "") {
                             window.sessionStorage.setItem("useremail", data[0]);
                             window.sessionStorage.setItem("token", data[2]);
+                            window.sessionStorage.setItem("username", data[3]);
                             window.location.assign(data[1]);
 						}
 						
