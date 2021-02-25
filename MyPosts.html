@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Barter Books</title>
+    <link href="./CSS/fontawesome-free-5.15.2-web/css/all.css" rel="stylesheet">
+    <script defer src="./CSS/fontawesome-free-5.15.2-web/js/all.js"></script>
+    <link href="./CSS/fontawesome-free-5.15.2-web/css/solid.css" rel="stylesheet">
+    <script defer src="./CSS/fontawesome-free-5.15.2-web/js/solid.js"></script>
+    <script defer src="./MyPosts.js"></script>
+    <script defer src="airtable.browser.js"></script>
+    <link href="./CSS/CustomCSS.css" rel="stylesheet">
+
+    <link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script defer src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color:#F76C6C">
+    <div style="padding:20px">
+        <div class="row">
+            <a id="homeBtn" href="javascript:void(0);" style="text-decoration:none; color:#F8E9A1; font-size:30px; font-weight:bold; font-family:Calibri"><i class="fas fa-home"></i>&nbsp; Barter Books</a>
+            <div class="dropdown" style="float:right">
+                <button class="dropbtn">User Name &nbsp; &nbsp;<i class="fas fa-caret-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="javascript:void(0);" onclick="javascript:window.location.href='Account.html'">Account</a>
+                    <a href="javascript:void(0);" id="Myposts">My Posts</a>
+                    <a href="javascript:void(0);" onclick="javascript:window.location.href='LoginSignUp.html'">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <table id="MyBooksPostTable" width="100%" border="0"></table>
+    </div>
+
+
+    <div class="modal fade" id="EditMyPostAdModal" role="dialog" data-backdrop="static">
+        <div class="modal-dialog" style="width:40%; background-color:#A8D0E6">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:#24305E; font-size:25px; font-weight:bold">Post your book ad</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="panel-group">
+                                <div class="panel panel-default" style="border:none">
+                                    <div class="row" style="background-color:#A8D0E6">
+                                        <div class="col-md-12">
+                                            <label style="color:red; font-family:Calibri; font-size:20px;">* are required fields</label>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-color:#A8D0E6; padding-top:10px;">
+                                        <div class="col-md-4">
+                                            <label style="color:#24305E; font-family:Calibri; font-size:20px;">Book Name<i style="color:red">*</i>:</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input id="inputGetBookName" style="color:#24305E;width: 100%;border-top: none;border-left: none;border-right: none;font-family:Calibri; font-size:20px" placeholder="Book name" />
+                                            <span id='inputGetBookName-error' class='error' for='inputGetBookName' style='font-weight:bold;visibility:hidden;color:red'>Please enter book name</span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-color:#A8D0E6; padding-top:10px;">
+                                        <div class="col-md-4">
+                                            <label style="color:#24305E; font-family:Calibri; font-size:20px;">Book Type:</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select id="selGetBookType" style="color:#24305E;width: 100%;border-top: none;border-left: none;border-right: none;font-family:Calibri; font-size:20px">
+                                                <option value="Novel">Novel</option>
+                                                <option value="Technical">Technical</option>
+                                                <option value="Others">Others</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-color:#A8D0E6;padding-top:25px;">
+                                        <div class="col-md-4">
+                                            <label style="color:#24305E; font-family:Calibri; font-size:20px;">Text Language<i style="color:red">*</i>:</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input id="inputGetBookLanguage" style="color:#24305E;width: 100%;border-top: none;border-left: none;border-right: none;font-family:Calibri; font-size:20px" placeholder="English, Hindi etc" />
+                                            <span id='inputGetBookLanguage-error' class='error' for='inputGetBookLanguage' style='font-weight:bold;visibility:hidden;color:red'>Please enter book language</span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-color:#A8D0E6;padding-top:10px;">
+                                        <div class="col-md-4">
+                                            <label style="color:#24305E; font-family:Calibri; font-size:20px;">Author<i style="color:red">*</i>:</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input id="inputGetBookAuthor" style="color:#24305E;width: 100%;border-top: none;border-left: none;border-right: none;font-family:Calibri; font-size:20px" placeholder="Author name" />
+                                            <span id='inputGetBookAuthor-error' class='error' for='inputGetBookAuthor' style='font-weight:bold;visibility:hidden;color:red'>Please enter author name</span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-color:#A8D0E6;padding-top:10px;">
+                                        <div class="col-md-4">
+                                            <label style="color:#24305E; font-family:Calibri; font-size:20px;">Book Link:</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input id="inputGetBookLink" style="color:#24305E;width: 100%;border-top: none;border-left: none;border-right: none;font-family:Calibri; font-size:20px" placeholder="Online links like Amazon, Flipkart for reference" />
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-color:#A8D0E6;padding-top:25px;">
+                                        <div class="col-md-4">
+                                            <label style="color:#24305E; font-family:Calibri; font-size:20px;">Description:</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <textarea id="inputGetBookDescription" style="color:#24305E;width: 100%;border-top: none;border-left: none;border-right: none;font-family:Calibri; font-size:20px" placeholder="Keywords - Thriller,Romantic for Novels. C++, Java, Product Management for tech books"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-color:#A8D0E6;padding-top:25px;">
+                                        <div class="col-md-4">
+                                            <label style="color:#24305E; font-family:Calibri; font-size:20px;">Interested In Books:</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <textarea id="inputGetBookInterestedIn" style="color:#24305E;width: 100%;border-top: none;border-left: none;border-right: none;font-family:Calibri; font-size:20px" placeholder="Enter book name or description like Thriller or Crime Novel, Product Management "></textarea>
+                                        </div>
+                                    </div>
+                                    <div style="display:none">
+                                        <input id="inputAdId">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" style="background-color:#24305E; width:70px;" id="btnEditMyPostAd">Submit</button>
+                    <button type="button" class="btn btn-danger" style="background-color:red; width:70px;" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="DeleteMyPostAdModal" role="dialog" data-backdrop="static">
+        <div class="modal-dialog" style="width:40%; background-color:#A8D0E6">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:#24305E; font-size:25px; font-weight:bold">Delete post confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="panel-group">
+                                <div class="panel panel-default" style="border:none">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label style="font-family:Calibri; font-size:20px;">Are you sure to delete the post</label>
+                                            <input id="inputAdId2" style="display:none">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" style="background-color:#24305E; width:70px;" id="btnDeleteMyPostAd">Delete</button>
+                    <button type="button" class="btn btn-danger" style="background-color:red; width:70px;" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="NotificationModal" role="dialog" data-backdrop="static">
+        <div class="modal-dialog" style="width:40%; background-color:#A8D0E6">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>                    
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="panel-group">
+                                <div class="panel panel-default" style="border:none">                                    
+                                    <h4 id="notification" style="font-size:25px; font-weight:bold"></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            //---- js functions called ---------------------------------------
+            urlParameters();
+            loadMyBooksPostTableData(true);
+            onEditMyPostAdModalOpen();
+            btnEditMyPostAdFunction();
+            onDeleteMyPostAdModalOpen();
+            onbtnDeleteMyPostAdClicked();
+            //----------------------------------------------------------------
+
+            $('#inputGetBookName').on('input', function () {
+                if ($("#inputGetBookName").val().trim() == "") {
+                    $("#inputGetBookName").addClass("error");
+                    $("#inputGetBookName-error").css("visibility", "visible");
+                }
+                else { $("#inputGetBookName").removeClass("error"); $("#inputGetBookName-error").css("visibility", "hidden"); }
+            });
+
+            $("#inputGetBookName").blur(function () {
+                if ($("#inputGetBookName").val().trim() == "") {
+                    $("#inputGetBookName").addClass("error");
+                    $("#inputGetBookName-error").css("visibility", "visible");
+                }
+                else { $("#inputGetBookName").removeClass("error"); $("#inputGetBookName-error").css("visibility", "hidden"); }
+            });
+
+
+            $('#inputGetBookLanguage').on('input', function () {
+                if ($("#inputGetBookLanguage").val().trim() == "") {
+                    $("#inputGetBookLanguage").addClass("error");
+                    $("#inputGetBookLanguage-error").css("visibility", "visible");
+                }
+                else { $("#inputGetBookLanguage").removeClass("error"); $("#inputGetBookLanguage-error").css("visibility", "hidden"); }
+            });
+
+            $("#inputGetBookLanguage").blur(function () {
+                if ($("#inputGetBookLanguage").val().trim() == "") {
+                    $("#inputGetBookLanguage").addClass("error");
+                    $("#inputGetBookLanguage-error").css("visibility", "visible");
+                }
+                else { $("#inputGetBookLanguage").removeClass("error"); $("#inputGetBookLanguage-error").css("visibility", "hidden"); }
+            });
+
+
+            $('#inputGetBookAuthor').on('input', function () {
+                if ($("#inputGetBookAuthor").val().trim() == "") {
+                    $("#inputGetBookAuthor").addClass("error");
+                    $("#inputGetBookAuthor-error").css("visibility", "visible");
+                }
+                else { $("#inputGetBookAuthor").removeClass("error"); $("#inputGetBookAuthor-error").css("visibility", "hidden"); }
+            });
+
+            $("#inputGetBookAuthor").blur(function () {
+                if ($("#inputGetBookAuthor").val().trim() == "") {
+                    $("#inputGetBookAuthor").addClass("error");
+                    $("#inputGetBookAuthor-error").css("visibility", "visible");
+                }
+                else { $("#inputGetBookAuthor").removeClass("error"); $("#inputGetBookAuthor-error").css("visibility", "hidden"); }
+            });
+
+        })
+    </script>
+
+    <style>
+        #EditMyPostAdModal .modal-content {
+            background-color: #A8D0E6;
+        }
+
+        ::placeholder {
+            color: grey;
+            font-style: italic;
+            font-weight: lighter;
+        }
+
+        input.error {
+            background: rgb(251, 227, 228);
+            border: 1px solid #fbc2c4;
+            color: #8a1f11;
+        }
+
+        th {
+            background-color: #24305E;
+            color: white;
+        }
+
+        #dataTables_filter {
+            color: #24305E;
+        }
+    </style>
+
+</body>
+</html>

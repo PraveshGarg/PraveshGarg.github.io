@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+
+    <link href="./CSS/fontawesome-free-5.15.2-web/css/all.css" rel="stylesheet">
+    <script defer src="./CSS/fontawesome-free-5.15.2-web/js/all.js"></script>
+    <link href="./CSS/fontawesome-free-5.15.2-web/css/solid.css" rel="stylesheet">
+    <script defer src="./CSS/fontawesome-free-5.15.2-web/js/solid.js"></script>
+    <script defer src="airtable.browser.js"></script>
+
+    <link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script defer src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="LoginSignUp.js"></script>
+
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        form {
+            border: 3px solid #f1f1f1;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #24305E;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            button:hover {
+                opacity: 0.8;
+            }
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+    </style>
+</head>
+<body style="background-color:#F76C6C">    
+    <div style="margin-left:70px; margin-right:70px; margin-top:60px">
+        <form id="LoginSignUpForm" method="post" style="background-color:white">
+
+            <div class="container">
+                <div class="col-md-5">
+                    <input id="inputLoginUserName" type="text" placeholder="Enter Email Address" required>
+
+                    <input id="inputLoginPassword" type="password" placeholder="Password" required>
+                    <p id="inputLoginError" style="color:red; display:none">Invalid login credentials</p>
+                    <button id="btnLogin" type="button">Login</button>
+
+                    <div>
+                        <span class="psw"><a id="anchorForgotPassword" href="#">Forgot password?</a></span>
+                    </div>
+
+                </div>
+                <div class="col-md-2">
+                    <h3 style="font-weight:bold; color:#24305E; text-align:center">Or</h3>
+                </div>
+                <div class="col-md-5">
+                    <button id="btnSignUp" type="button">SignUp</button>
+                </div>
+            </div>
+        </form>
+
+        <form id="SignUpForm" method="post" style="background-color:white; display:none">
+
+            <div class="container" style="width:40%;">
+                <div>
+                    <input id="inputSignUpFirstName" type="text" placeholder="First Name" required>
+                    <p id="inputSignUpFirstNameError" style="color:red; display:none">Please enter your first name</p>
+                </div>
+                <div>
+                    <input id="inputSignUpLastName" type="text" placeholder="Last Name" required>
+                    <p id="inputSignUpLastNameError" style="color:red; display:none">Please enter your last name</p>
+                </div>
+                <div>
+                    <input id="inputSignUpMobile" type="text" placeholder="Mobile Number" required>
+                    <p id="inputSignUpMobileError" style="color:red; display:none">Please enter your mobile number</p>
+                </div>
+                <div>
+                    <select id="selSignUpCity">
+                        <option value="Select">Select</option>
+                        <option value="Bengaluru">Bengaluru</option>
+                        <option value="Delhi/NCR">Delhi/NCR</option>
+                        <option value="Jaipur">Jaipur</option>
+                        <option value="Surat">Surat</option>
+                    </select>
+                    <p id="selSignUpCityError" style="color:red; display:none">Please select your city</p>
+                </div>
+                <div>
+                    <input id="inputSignUpAddress" type="text" placeholder="Address" required>
+                    <p id="inputSignUpAddressError" style="color:red; display:none">Please enter your address</p>
+                </div>
+                <div>
+                    <input id="inputSignUpEmail" type="text" placeholder="Enter Email Address" required>
+                    <p id="inputSignUpEmailError" style="color:red; display:none">Please enter a valid email</p>
+                    <p id="inputEmailExistsError" style="color:red; display:none">Email already exists</p>
+                </div>
+                <div>
+                    <input id="inputSignUpPassword" type="password" placeholder="Password" required>
+                    <p id="inputSignUpPasswordError" style="color:red; display:none">Password cannot be empty</p>
+                </div>
+                <div>
+                    <input id="inputSignUpRePassword" type="password" placeholder="Confirm Password" required>
+                    <p id="inputSignUpRePasswordError" style="color:red; display:none">Password does not match</p>
+                </div>
+                <div>
+                    <button id="btnSignUpSubmit" type="button">Submit</button>
+                </div>
+            </div>
+        </form>
+
+        <form id="ForgotPasswordForm" method="post" style="background-color:white; display:none">
+
+            <div class="container" style="width:40%;">
+                <div>
+                    <input id="inputForgotPasswordEmail" type="text" placeholder="Enter Email Address" required>
+                    <p id="inputForgotPasswordEmailError" style="color:red; display:none">Email doesn't exist</p>
+                </div>
+                <div>
+                    <button id="btnSendOTP" type="button">Send/Re-Send OTP</button>
+                    <p id="inputForgotPasswordOTPSuccess" style="color:green; display:none">OTP has been sent to your email</p>
+                </div>
+                <div>
+                    <input id="inputForgotPasswordOTP" type="text" placeholder="Enter the OTP" required>
+                    <p id="inputForgotPasswordOTPError" style="color:red; display:none">OTP entered is incorrect</p>
+                </div>
+                <div>
+                    <button id="btnSubmitOTP" type="button">Submit OTP</button>
+                </div>
+            </div>
+        </form>
+
+        <form id="PasswordResetForm" method="post" style="background-color:white; display:none">
+            <div class="container" style="width:40%;">
+                <div>
+                    <input id="inputPasswordResetEmail" type="text" style="display:none">
+                    <input id="inputPasswordResetPassword" type="password" placeholder="Password" required>
+                </div>
+                <div>
+                    <input id="inputPasswordResetRePassword" type="password" placeholder="Confirm Password" required>
+                    <p id="inputPasswordResetError" style="color:red; display:none">Password does not match</p>
+                </div>
+                <div>
+                    <button id="btnResetPassword" type="button">Reset Password</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+        
+    
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.sessionStorage.clear();
+            //---- js functions called ---------------------------------------
+            sendOtp();
+            btnSignUpClicked();
+            btnSignUpSubmitClicked();
+            btnLoginClicked();
+            anchorForgotPasswordClicked();
+            btnSubmitOTPClicked();
+            btnResetPasswordClicked();            
+            //----------------------------------------------------------------
+        })
+    </script>
+</body>
+</html>
