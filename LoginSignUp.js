@@ -95,6 +95,7 @@ function btnSignUpSubmitClicked(){
                     data: { "email": email, "password": password, "firstname": $("#inputSignUpFirstName").val(), "lastname": $("#inputSignUpLastName").val(), "mobile": $("#inputSignUpMobile").val(), "city": $("#selSignUpCity").val(), "address": $("#inputSignUpAddress").val()},
                     headers:
                     {
+                        "Access-Control-Allow-Origin": "*",
                         "Access-Control-Allow-Headers": "x-requested-with",
                         "Access-Control-Allow-Headers": "*",
                     },
