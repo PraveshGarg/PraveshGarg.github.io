@@ -85,7 +85,7 @@ function btnSignUpSubmitClicked(){
         var email = $("#inputSignUpEmail").val();
         var password = $("#inputSignUpPassword").val();
         
-        if ($("#inputSignUpPassword").val() == $("#inputSignUpRePassword").val() && $("#inputSignUpPassword").val() != "" && $("#inputSignUpEmail").val() != "" && $("#inputSignUpFirstName").val() != "" && $("#inputSignUpLastName").val() != "" && $("#inputSignUpMobile").val() != "" && $("#inputSignUpAddress").val() != "" && $("#selSignUpCity").val() != "Select") {
+        if ($("#inputSignUpPassword").val() == $("#inputSignUpRePassword").val() && $("#inputSignUpPassword").val() != "" && $("#inputSignUpEmail").val() != "" && $("#inputSignUpFirstName").val() != "" && $("#inputSignUpLastName").val() != "" && $("#inputSignUpMobile").val() != "" && $("#inputSignUpAddress").val() != "" && $("#selSignUpCity").val() != "City") {
 
             $.ajax
                 ({
@@ -125,7 +125,7 @@ function btnSignUpSubmitClicked(){
             else if ($("#inputSignUpMobile").val() == "") {
                 $("#inputSignUpMobileError").css("display", "block");
             }
-            else if ($("#selSignUpCity").val() == "Select") {
+            else if ($("#selSignUpCity").val() == "City") {
                 $("#selSignUpCityError").css("display", "block");
             }
             else if ($("#inputSignUpAddress").val() == "") {
